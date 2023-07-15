@@ -1,0 +1,4 @@
+
+/storage/*
+composer.lock
+.htaccess
