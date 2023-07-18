@@ -177,7 +177,21 @@ if (is_dir($directory)) {
                       cursor: pointer;
                       transition: background .2s ease-in-out;
                             }
-                    
+                            #progress-bar-container {
+                                                        width: 100%;
+                                                        background-color: #f1f1f1;
+                                                        margin-bottom: 10px;
+                                                        
+    }
+
+    #progress-bar {
+      width: 0%;
+      height: 30px;
+      background-color: #4CAF50;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+    }
                      
                         </style>
 </head>
@@ -229,13 +243,15 @@ $search_value=$_SESSION["username"];
 
 
 ?>
-
+<div id="progress-bar-container"  style="display: none;">
+  <div id="progress-bar">0%</div>
+</div>
 <div class="file-input">
 <form action="upload.php" method="post" enctype="multipart/form-data">
   
   <input type="file" name="fileToUpload" id="fileToUpload" required><br> <br>
 
-  <input type="submit" value="Upload" name="submit">
+  <input type="submit" value="Upload" name="submit" hidden>
 </form>
  <br>
 <p><a class="download-link" href="link_down/index.php">Direct Download Via Link</a></p>
@@ -246,6 +262,7 @@ $search_value=$_SESSION["username"];
             <th>Name</th>
             <th>V</th>
             <th>D</th>
+          
         </tr>
         <?php
         foreach (array_reverse($files) as $file) {
@@ -266,6 +283,7 @@ $search_value=$_SESSION["username"];
                     <td title="' . $file . '">' . $shortString . '</td>
                     <td><a class="download-btn" href="' . $filePath . '"">👀</a></td>
                     <td><a class="download-btn" href="' . $filePath . '" download="' . $file . '">⏬</a></td>
+                   
                     
                   </tr>';
                 }
@@ -286,6 +304,58 @@ $search_value=$_SESSION["username"];
 
 
      
+<!-- JavaScript to update the progress bar -->
+<script>
+  // Get the file input element
+  const fileInput = document.querySelector('#fileToUpload');
+
+  // Listen for the 'change' event on the file input
+  fileInput.addEventListener('change', (event) => {
+    const progressBarContainer = document.querySelector('#progress-bar-container');
+  progressBarContainer.style.display = 'block';
+
+    // Get the selected file
+    const file = event.target.files[0];
+
+    // Create a new FormData object
+    const formData = new FormData();
+
+    // Append the selected file to the FormData object
+    formData.append('fileToUpload', file);
+
+    // Create a new XMLHttpRequest object
+    const xhr = new XMLHttpRequest();
+
+    // Configure the XMLHttpRequest
+    xhr.open('POST', 'upload.php');
+
+    // Listen for the 'load' event on the XMLHttpRequest
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        // File upload successful, redirect to index.php
+        window.location.href = 'index.php';
+      } else {
+        // File upload failed, display an error message
+        console.error('File upload failed');
+      }
+    };
+
+    // Listen for the 'progress' event on the XMLHttpRequest
+    xhr.upload.onprogress = function(event) {
+      // Calculate the progress percentage
+      const progress = Math.round((event.loaded / event.total) * 100);
+
+      // Update the progress bar
+      const progressBar = document.querySelector('#progress-bar');
+      progressBar.style.width = progress + '%';
+      progressBar.textContent = progress + '%';
+    };
+
+    // Send the FormData object via the XMLHttpRequest
+    xhr.send(formData);
+  });
+</script>
+
 </body>
 </html>
 <?php

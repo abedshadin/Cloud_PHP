@@ -33,6 +33,22 @@ if (isset($_GET['logout'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <title>Error</title>
+  <style>
+      #progress-bar-container {
+      width: 100%;
+      background-color: #f1f1f1;
+      margin-bottom: 10px;
+    }
+
+    #progress-bar {
+      width: 0%;
+      height: 30px;
+      background-color: #4CAF50;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 <div class="header">
@@ -87,7 +103,7 @@ $uploadOk = 1;
 $imageFileType = strtolower($extension);
 
 // Check if file already exists
-if (file_exists($target_file)) {
+if (file_exists($filename)) {
   echo "Sorry, file already exists.";
   $uploadOk = 0;
 }
@@ -103,6 +119,8 @@ if ($uploadOk == 0) {
   }
 }
 ?>
+
+
 
 <center><br><a href="index.php">Back To Home Page</a></center>
 
