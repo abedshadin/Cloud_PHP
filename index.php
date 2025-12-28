@@ -254,7 +254,7 @@ $search_value=$_SESSION["username"];
   <input type="submit" value="Upload" name="submit" hidden>
 </form>
  <br>
-<p><a class="download-link" href="link_down/index.php">Direct Download Via Link</a></p>
+<!-- <p><a class="download-link" href="link_down/index.php">Direct Download Via Link</a></p> -->
 <br>
 </div>
     <table width="100%">
