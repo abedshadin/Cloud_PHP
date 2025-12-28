@@ -281,7 +281,8 @@ $search_value=$_SESSION["username"];
                     echo '<tr>
                     <td><span class="icon">' . $fileIcon . '</span>File</td>
                     <td title="' . $file . '">' . $shortString . '</td>
-                    <td><a class="download-btn" href="' . $filePath . '"">👀</a></td>
+                <td><a class="download-btn" href="watch.php?file=' . urlencode($file) . '" target="_blank">👀</a></td>
+
                     <td><a class="download-btn" href="' . $filePath . '" download="' . $file . '">⏬</a></td>
                    
                     
